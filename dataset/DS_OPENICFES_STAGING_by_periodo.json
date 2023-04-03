@@ -1,16 +1,27 @@
 {
-	"name": "DS_OPENICFES_STAGING_PARQUET_copy1",
+	"name": "DS_OPENICFES_STAGING_by_periodo",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_ADLS_DATALAKE",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"year": {
+				"type": "string"
+			},
+			"semester": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "**",
+				"fileName": {
+					"value": "@concat('year=',dataset().year,\n         '/semester=',dataset().semester, \n         '/SB11_',dataset().year,dataset().semester,'.parquet'\n        )",
+					"type": "Expression"
+				},
 				"folderPath": "datalake/staging/open_icfes/parquet",
 				"fileSystem": "dls-dwh-dev-eastus-01"
 			},
