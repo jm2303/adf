@@ -1,0 +1,20 @@
+{
+	"name": "ds_file_content",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_DATALAKE",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "datalake/raw/open_icfes/input",
+				"fileSystem": "dls-dwh-dev-eastus-01"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

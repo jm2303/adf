@@ -1,0 +1,358 @@
+{
+	"name": "DS_OPEN_ICFES_STAGING_CSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_DATALAKE",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat(substring(dataset().filename,5,5), '/' , replace(dataset().filename,'zip','csv'))",
+					"type": "Expression"
+				},
+				"folderPath": "datalake/staging/open_icfes/csv",
+				"fileSystem": "dls-dwh-dev-eastus-01"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "ESTU_TIPODOCUMENTO",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_NACIONALIDAD",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_GENERO",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_FECHANACIMIENTO",
+				"type": "String"
+			},
+			{
+				"name": "PERIODO",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_CONSECUTIVO",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_ESTUDIANTE",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_PAIS_RESIDE",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_TIENEETNIA",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_DEPTO_RESIDE",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_COD_RESIDE_DEPTO",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_MCPIO_RESIDE",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_COD_RESIDE_MCPIO",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_EDUCACIONPADRE",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_EDUCACIONMADRE",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_ESTRATOVIVIENDA",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_PERSONASHOGAR",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_CUARTOSHOGAR",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_TIENEINTERNET",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_TIENECOMPUTADOR",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_TIENELAVADORA",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_TIENEHORNOMICROOGAS",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_TIENESERVICIOTV",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_TIENEAUTOMOVIL",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_TIENEMOTOCICLETA",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_TIENECONSOLAVIDEOJUEGOS",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_NUMLIBROS",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_DEDICACIONLECTURADIARIA",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_DEDICACIONINTERNET",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_HORASSEMANATRABAJA",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_TIPOREMUNERACION",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_COMELECHEDERIVADOS",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_COMECARNEPESCADOHUEVO",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_COMECEREALFRUTOSLEGUMBRE",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_TRABAJOLABORPADRE",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_TRABAJOLABORMADRE",
+				"type": "String"
+			},
+			{
+				"name": "FAMI_SITUACIONECONOMICA",
+				"type": "String"
+			},
+			{
+				"name": "COLE_COD_DANE_ESTABLECIMIENTO",
+				"type": "String"
+			},
+			{
+				"name": "COLE_CODIGO_ICFES",
+				"type": "String"
+			},
+			{
+				"name": "COLE_NOMBRE_ESTABLECIMIENTO",
+				"type": "String"
+			},
+			{
+				"name": "COLE_JORNADA",
+				"type": "String"
+			},
+			{
+				"name": "COLE_GENERO",
+				"type": "String"
+			},
+			{
+				"name": "COLE_NATURALEZA",
+				"type": "String"
+			},
+			{
+				"name": "COLE_CALENDARIO",
+				"type": "String"
+			},
+			{
+				"name": "COLE_BILINGUE",
+				"type": "String"
+			},
+			{
+				"name": "COLE_CARACTER",
+				"type": "String"
+			},
+			{
+				"name": "COLE_COD_DANE_SEDE",
+				"type": "String"
+			},
+			{
+				"name": "COLE_NOMBRE_SEDE",
+				"type": "String"
+			},
+			{
+				"name": "COLE_SEDE_PRINCIPAL",
+				"type": "String"
+			},
+			{
+				"name": "COLE_AREA_UBICACION",
+				"type": "String"
+			},
+			{
+				"name": "COLE_COD_MCPIO_UBICACION",
+				"type": "String"
+			},
+			{
+				"name": "COLE_MCPIO_UBICACION",
+				"type": "String"
+			},
+			{
+				"name": "COLE_COD_DEPTO_UBICACION",
+				"type": "String"
+			},
+			{
+				"name": "COLE_DEPTO_UBICACION",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_PRIVADO_LIBERTAD",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_COD_MCPIO_PRESENTACION",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_MCPIO_PRESENTACION",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_DEPTO_PRESENTACION",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_COD_DEPTO_PRESENTACION",
+				"type": "String"
+			},
+			{
+				"name": "PUNT_MATEMATICAS",
+				"type": "String"
+			},
+			{
+				"name": "DESEMP_MATEMATICAS",
+				"type": "String"
+			},
+			{
+				"name": "PERCENTIL_MATEMATICAS",
+				"type": "String"
+			},
+			{
+				"name": "PUNT_INGLES",
+				"type": "String"
+			},
+			{
+				"name": "PERCENTIL_INGLES",
+				"type": "String"
+			},
+			{
+				"name": "DESEMP_INGLES",
+				"type": "String"
+			},
+			{
+				"name": "PUNT_C_NATURALES",
+				"type": "String"
+			},
+			{
+				"name": "DESEMP_C_NATURALES",
+				"type": "String"
+			},
+			{
+				"name": "PERCENTIL_C_NATURALES",
+				"type": "String"
+			},
+			{
+				"name": "PUNT_LECTURA_CRITICA",
+				"type": "String"
+			},
+			{
+				"name": "DESEMP_LECTURA_CRITICA",
+				"type": "String"
+			},
+			{
+				"name": "PERCENTIL_LECTURA_CRITICA",
+				"type": "String"
+			},
+			{
+				"name": "PUNT_SOCIALES_CIUDADANAS",
+				"type": "String"
+			},
+			{
+				"name": "DESEMP_SOCIALES_CIUDADANAS",
+				"type": "String"
+			},
+			{
+				"name": "PERCENTIL_SOCIALES_CIUDADANAS",
+				"type": "String"
+			},
+			{
+				"name": "PUNT_GLOBAL",
+				"type": "String"
+			},
+			{
+				"name": "PERCENTIL_GLOBAL",
+				"type": "String"
+			},
+			{
+				"name": "PERCENTIL_ESPECIAL_GLOBAL",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_INSE_INDIVIDUAL",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_NSE_INDIVIDUAL",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_NSE_ESTABLECIMIENTO",
+				"type": "String"
+			},
+			{
+				"name": "ESTU_ESTADOINVESTIGACION",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

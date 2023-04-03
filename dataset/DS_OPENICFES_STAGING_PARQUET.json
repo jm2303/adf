@@ -1,0 +1,347 @@
+{
+	"name": "DS_OPENICFES_STAGING_PARQUET",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_DATALAKE",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat('/year=',substring(dataset().filename,5,4), \n        '/semester=',substring(dataset().filename,9,1) ,'/', \n        replace(dataset().filename,'zip','parquet')\n    )",
+					"type": "Expression"
+				},
+				"folderPath": "datalake/staging/open_icfes/parquet",
+				"fileSystem": "dls-dwh-dev-eastus-01"
+			},
+			"compressionCodec": "gzip"
+		},
+		"schema": [
+			{
+				"name": "ESTU_TIPODOCUMENTO",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_NACIONALIDAD",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_GENERO",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_FECHANACIMIENTO",
+				"type": "UTF8"
+			},
+			{
+				"name": "PERIODO",
+				"type": "INT32"
+			},
+			{
+				"name": "ESTU_CONSECUTIVO",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_ESTUDIANTE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_PAIS_RESIDE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_TIENEETNIA",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_DEPTO_RESIDE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_COD_RESIDE_DEPTO",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_MCPIO_RESIDE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_COD_RESIDE_MCPIO",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_EDUCACIONPADRE",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_EDUCACIONMADRE",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_ESTRATOVIVIENDA",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_PERSONASHOGAR",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_CUARTOSHOGAR",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_TIENEINTERNET",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_TIENECOMPUTADOR",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_TIENELAVADORA",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_TIENEHORNOMICROOGAS",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_TIENESERVICIOTV",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_TIENEAUTOMOVIL",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_TIENEMOTOCICLETA",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_TIENECONSOLAVIDEOJUEGOS",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_NUMLIBROS",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_DEDICACIONLECTURADIARIA",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_DEDICACIONINTERNET",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_HORASSEMANATRABAJA",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_TIPOREMUNERACION",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_COMELECHEDERIVADOS",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_COMECARNEPESCADOHUEVO",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_COMECEREALFRUTOSLEGUMBRE",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_TRABAJOLABORPADRE",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_TRABAJOLABORMADRE",
+				"type": "UTF8"
+			},
+			{
+				"name": "FAMI_SITUACIONECONOMICA",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_COD_DANE_ESTABLECIMIENTO",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_CODIGO_ICFES",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_NOMBRE_ESTABLECIMIENTO",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_JORNADA",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_GENERO",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_NATURALEZA",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_CALENDARIO",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_BILINGUE",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_CARACTER",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_COD_DANE_SEDE",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_NOMBRE_SEDE",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_SEDE_PRINCIPAL",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_AREA_UBICACION",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_COD_MCPIO_UBICACION",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_MCPIO_UBICACION",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_COD_DEPTO_UBICACION",
+				"type": "UTF8"
+			},
+			{
+				"name": "COLE_DEPTO_UBICACION",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_PRIVADO_LIBERTAD",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_COD_MCPIO_PRESENTACION",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_MCPIO_PRESENTACION",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_DEPTO_PRESENTACION",
+				"type": "UTF8"
+			},
+			{
+				"name": "ESTU_COD_DEPTO_PRESENTACION",
+				"type": "UTF8"
+			},
+			{
+				"name": "PUNT_MATEMATICAS",
+				"type": "INT32"
+			},
+			{
+				"name": "DESEMP_MATEMATICAS",
+				"type": "INT32"
+			},
+			{
+				"name": "PERCENTIL_MATEMATICAS",
+				"type": "INT32"
+			},
+			{
+				"name": "PUNT_INGLES",
+				"type": "INT32"
+			},
+			{
+				"name": "PERCENTIL_INGLES",
+				"type": "INT32"
+			},
+			{
+				"name": "DESEMP_INGLES",
+				"type": "UTF8"
+			},
+			{
+				"name": "PUNT_C_NATURALES",
+				"type": "INT32"
+			},
+			{
+				"name": "DESEMP_C_NATURALES",
+				"type": "UTF8"
+			},
+			{
+				"name": "PERCENTIL_C_NATURALES",
+				"type": "INT32"
+			},
+			{
+				"name": "PUNT_LECTURA_CRITICA",
+				"type": "INT32"
+			},
+			{
+				"name": "DESEMP_LECTURA_CRITICA",
+				"type": "INT32"
+			},
+			{
+				"name": "PERCENTIL_LECTURA_CRITICA",
+				"type": "INT32"
+			},
+			{
+				"name": "PUNT_SOCIALES_CIUDADANAS",
+				"type": "INT32"
+			},
+			{
+				"name": "DESEMP_SOCIALES_CIUDADANAS",
+				"type": "INT32"
+			},
+			{
+				"name": "PERCENTIL_SOCIALES_CIUDADANAS",
+				"type": "INT32"
+			},
+			{
+				"name": "PUNT_GLOBAL",
+				"type": "INT32"
+			},
+			{
+				"name": "PERCENTIL_GLOBAL",
+				"type": "INT32"
+			},
+			{
+				"name": "PERCENTIL_ESPECIAL_GLOBAL",
+				"type": "INT32"
+			},
+			{
+				"name": "year",
+				"type": "UTF8"
+			},
+			{
+				"name": "semester",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

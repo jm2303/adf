@@ -1,0 +1,205 @@
+{
+	"name": "PL_COPY_RAW_ICFES_CSV_INPUT",
+	"properties": {
+		"activities": [
+			{
+				"name": "List files",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_file_content",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"childItems",
+						"itemName",
+						"itemType"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "JsonReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Get filename",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "List files",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('List files').output.childItems",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Move files",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": false,
+										"wildcardFolderPath": "datalake/raw/open_icfes/input",
+										"wildcardFileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings",
+										"compressionProperties": {
+											"type": "ZipDeflateReadSettings",
+											"preserveZipFileNameAsFolder": false
+										}
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"parallelCopies": 1,
+								"validateDataConsistency": false,
+								"logSettings": {
+									"enableCopyActivityLog": true,
+									"copyActivityLogSettings": {
+										"logLevel": "Warning",
+										"enableReliableLogging": false
+									},
+									"logLocationSettings": {
+										"linkedServiceName": {
+											"referenceName": "LS_ADLS_DATALAKE",
+											"type": "LinkedServiceReference"
+										},
+										"path": "dls-dwh-dev-eastus-01/datalake/staging/icfes/log"
+									}
+								},
+								"dataIntegrationUnits": 2,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_OPENICFES_INPUT",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_OPEN_ICFES_STAGING_CSV",
+									"type": "DatasetReference",
+									"parameters": {
+										"filename": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "on fail",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "Move files",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "failures",
+								"value": {
+									"value": "@item().name",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "On Success",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "Move files",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "ok",
+								"value": {
+									"value": "@item().name",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"filename": {
+				"type": "String"
+			},
+			"ok": {
+				"type": "Array"
+			},
+			"failures": {
+				"type": "Array"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-04-02T18:15:19Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

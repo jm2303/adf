@@ -1,0 +1,9 @@
+{
+	"name": "adf-dwh-dev-eastus-002",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "064d20bd-4458-40e8-9c88-a1e043f1d7c1",
+		"tenantId": "422a9c64-d244-4339-9bb4-f5fd968457af"
+	}
+}

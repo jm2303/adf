@@ -1,0 +1,1130 @@
+{
+	"name": "PL_COPY_RAW_ICFES_PARQUET",
+	"properties": {
+		"activities": [
+			{
+				"name": "List files",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_file_content",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"childItems",
+						"itemName",
+						"itemType"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "JsonReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Get filename",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "List files",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('List files').output.childItems",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Move files",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": false,
+										"wildcardFolderPath": "datalake/raw/open_icfes/input",
+										"wildcardFileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings",
+										"compressionProperties": {
+											"type": "ZipDeflateReadSettings",
+											"preserveZipFileNameAsFolder": false
+										}
+									}
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings",
+										"maxConcurrentConnections": 2
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"parallelCopies": 1,
+								"validateDataConsistency": false,
+								"logSettings": {
+									"enableCopyActivityLog": true,
+									"copyActivityLogSettings": {
+										"logLevel": "Warning",
+										"enableReliableLogging": false
+									},
+									"logLocationSettings": {
+										"linkedServiceName": {
+											"referenceName": "LS_ADLS_DATALAKE",
+											"type": "LinkedServiceReference"
+										},
+										"path": "dls-dwh-dev-eastus-01/datalake/staging/icfes/log"
+									}
+								},
+								"dataIntegrationUnits": 2,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "ESTU_TIPODOCUMENTO",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_TIPODOCUMENTO",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_NACIONALIDAD",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_NACIONALIDAD",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_GENERO",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_GENERO",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_FECHANACIMIENTO",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_FECHANACIMIENTO",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PERIODO",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PERIODO",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_CONSECUTIVO",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_CONSECUTIVO",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_ESTUDIANTE",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_ESTUDIANTE",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_PAIS_RESIDE",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_PAIS_RESIDE",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_TIENEETNIA",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_TIENEETNIA",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_DEPTO_RESIDE",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_DEPTO_RESIDE",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_COD_RESIDE_DEPTO",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_COD_RESIDE_DEPTO",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_MCPIO_RESIDE",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_MCPIO_RESIDE",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_COD_RESIDE_MCPIO",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_COD_RESIDE_MCPIO",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_EDUCACIONPADRE",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_EDUCACIONPADRE",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_EDUCACIONMADRE",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_EDUCACIONMADRE",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_ESTRATOVIVIENDA",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_ESTRATOVIVIENDA",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_PERSONASHOGAR",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_PERSONASHOGAR",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_CUARTOSHOGAR",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_CUARTOSHOGAR",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_TIENEINTERNET",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_TIENEINTERNET",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_TIENECOMPUTADOR",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_TIENECOMPUTADOR",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_TIENELAVADORA",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_TIENELAVADORA",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_TIENEHORNOMICROOGAS",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_TIENEHORNOMICROOGAS",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_TIENESERVICIOTV",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_TIENESERVICIOTV",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_TIENEAUTOMOVIL",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_TIENEAUTOMOVIL",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_TIENEMOTOCICLETA",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_TIENEMOTOCICLETA",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_TIENECONSOLAVIDEOJUEGOS",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_TIENECONSOLAVIDEOJUEGOS",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_NUMLIBROS",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_NUMLIBROS",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_DEDICACIONLECTURADIARIA",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_DEDICACIONLECTURADIARIA",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_DEDICACIONINTERNET",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_DEDICACIONINTERNET",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_HORASSEMANATRABAJA",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_HORASSEMANATRABAJA",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_TIPOREMUNERACION",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_TIPOREMUNERACION",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_COMELECHEDERIVADOS",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_COMELECHEDERIVADOS",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_COMECARNEPESCADOHUEVO",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_COMECARNEPESCADOHUEVO",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_COMECEREALFRUTOSLEGUMBRE",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_COMECEREALFRUTOSLEGUMBRE",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_TRABAJOLABORPADRE",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_TRABAJOLABORPADRE",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_TRABAJOLABORMADRE",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_TRABAJOLABORMADRE",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "FAMI_SITUACIONECONOMICA",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "FAMI_SITUACIONECONOMICA",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_COD_DANE_ESTABLECIMIENTO",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_COD_DANE_ESTABLECIMIENTO",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_CODIGO_ICFES",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_CODIGO_ICFES",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_NOMBRE_ESTABLECIMIENTO",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_NOMBRE_ESTABLECIMIENTO",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_JORNADA",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_JORNADA",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_GENERO",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_GENERO",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_NATURALEZA",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_NATURALEZA",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_CALENDARIO",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_CALENDARIO",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_BILINGUE",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_BILINGUE",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_CARACTER",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_CARACTER",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_COD_DANE_SEDE",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_COD_DANE_SEDE",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_NOMBRE_SEDE",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_NOMBRE_SEDE",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_SEDE_PRINCIPAL",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_SEDE_PRINCIPAL",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_AREA_UBICACION",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_AREA_UBICACION",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_COD_MCPIO_UBICACION",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_COD_MCPIO_UBICACION",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_MCPIO_UBICACION",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_MCPIO_UBICACION",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_COD_DEPTO_UBICACION",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_COD_DEPTO_UBICACION",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "COLE_DEPTO_UBICACION",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "COLE_DEPTO_UBICACION",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_PRIVADO_LIBERTAD",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_PRIVADO_LIBERTAD",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_COD_MCPIO_PRESENTACION",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_COD_MCPIO_PRESENTACION",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_MCPIO_PRESENTACION",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_MCPIO_PRESENTACION",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_DEPTO_PRESENTACION",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_DEPTO_PRESENTACION",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "ESTU_COD_DEPTO_PRESENTACION",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "ESTU_COD_DEPTO_PRESENTACION",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PUNT_MATEMATICAS",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PUNT_MATEMATICAS",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "DESEMP_MATEMATICAS",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "DESEMP_MATEMATICAS",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PERCENTIL_MATEMATICAS",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PERCENTIL_MATEMATICAS",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PUNT_INGLES",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PUNT_INGLES",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PERCENTIL_INGLES",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PERCENTIL_INGLES",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "DESEMP_INGLES",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "DESEMP_INGLES",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PUNT_C_NATURALES",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PUNT_C_NATURALES",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "DESEMP_C_NATURALES",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "DESEMP_C_NATURALES",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PERCENTIL_C_NATURALES",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PERCENTIL_C_NATURALES",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PUNT_LECTURA_CRITICA",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PUNT_LECTURA_CRITICA",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "DESEMP_LECTURA_CRITICA",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "DESEMP_LECTURA_CRITICA",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PERCENTIL_LECTURA_CRITICA",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PERCENTIL_LECTURA_CRITICA",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PUNT_SOCIALES_CIUDADANAS",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PUNT_SOCIALES_CIUDADANAS",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "DESEMP_SOCIALES_CIUDADANAS",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "DESEMP_SOCIALES_CIUDADANAS",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PERCENTIL_SOCIALES_CIUDADANAS",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PERCENTIL_SOCIALES_CIUDADANAS",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PUNT_GLOBAL",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PUNT_GLOBAL",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PERCENTIL_GLOBAL",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PERCENTIL_GLOBAL",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "PERCENTIL_ESPECIAL_GLOBAL",
+												"type": "Int32",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "PERCENTIL_ESPECIAL_GLOBAL",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										}
+									],
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_OPENICFES_INPUT",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_OPENICFES_STAGING_PARQUET",
+									"type": "DatasetReference",
+									"parameters": {
+										"filename": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "on fail",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "Move files",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "failures",
+								"value": {
+									"value": "@item().name",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "On Success",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "Move files",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "ok",
+								"value": {
+									"value": "@item().name",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"filename": {
+				"type": "String"
+			},
+			"ok": {
+				"type": "Array"
+			},
+			"failures": {
+				"type": "Array"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-04-03T00:58:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

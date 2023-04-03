@@ -1,0 +1,25 @@
+{
+	"name": "DS_OPENICFES_INPUT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_DATALAKE",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "datalake/raw/open_icfes/input",
+				"fileSystem": "dls-dwh-dev-eastus-01"
+			},
+			"columnDelimiter": "¬",
+			"compressionCodec": "ZipDeflate",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
