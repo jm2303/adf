@@ -1,5 +1,5 @@
 {
-	"name": "PL_COPY_RAW_ICFES_CSV_INPUT",
+	"name": "PL_COPY_RAW_ICFES_CSV",
 	"properties": {
 		"activities": [
 			{

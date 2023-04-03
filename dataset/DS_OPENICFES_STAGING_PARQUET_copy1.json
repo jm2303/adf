@@ -1,5 +1,5 @@
 {
-	"name": "DS_OPENICFES_STAGING_PARQUET",
+	"name": "DS_OPENICFES_STAGING_PARQUET_copy1",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_ADLS_DATALAKE",
@@ -15,10 +15,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@concat('year=',substring(dataset().filename,5,4), \n        '/semester=',substring(dataset().filename,9,1) ,'/', \n        replace(dataset().filename,'zip','parquet')\n    )",
-					"type": "Expression"
-				},
+				"fileName": "**",
 				"folderPath": "datalake/staging/open_icfes/parquet",
 				"fileSystem": "dls-dwh-dev-eastus-01"
 			},

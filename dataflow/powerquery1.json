@@ -1,0 +1,20 @@
+{
+	"name": "powerquery1",
+	"properties": {
+		"type": "WranglingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "DS_OPENICFES_STAGING_PARQUET",
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~>  DS_OPENICFES_STAGING_PARQUET",
+					"dataset": {
+						"referenceName": "DS_OPENICFES_STAGING_PARQUET",
+						"type": "DatasetReference"
+					}
+				}
+			],
+			"script": "section Section1;\r\nshared DS_OPENICFES_STAGING_PARQUET = let AdfDoc = AzureStorage.DataLakeContents(\"https://stdwhdeveastus.dfs.core.windows.net/dls-dwh-dev-eastus-01/datalake/staging/open_icfes/parquet//year=2022/semester=2/SB11_20222.parquet\"), Parquet = Parquet.Document(AdfDoc) in Parquet;\r\nshared UserQuery = let Source = #\"DS_OPENICFES_STAGING_PARQUET\" in Source;\r\n",
+			"documentLocale": "en-us"
+		}
+	}
+}
