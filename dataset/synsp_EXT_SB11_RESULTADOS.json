@@ -1,0 +1,16 @@
+{
+	"name": "synsp_EXT_SB11_RESULTADOS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SYN_",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "EXT_SB11_PAR"
+		}
+	}
+}
