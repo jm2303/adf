@@ -17,7 +17,25 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "PQ_fact_sb11_by_periodo",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"DS_OPENICFES_STAGING_by_periodo": {
+								"year": {
+									"value": "@pipeline().parameters.year",
+									"type": "Expression"
+								},
+								"semester": {
+									"value": "@pipeline().parameters.semester",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "AzureBlobStorage1",
+							"type": "LinkedServiceReference"
+						}
 					},
 					"compute": {
 						"coreCount": 8,
@@ -25,6 +43,33 @@
 					},
 					"queries": []
 				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_ASQL_ANALITICA",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"parameters": {
