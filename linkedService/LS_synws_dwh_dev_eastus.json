@@ -1,0 +1,10 @@
+{
+	"name": "LS_synws_dwh_dev_eastus",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDW",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=synw-cfes-ondemand.sql.azuresynapse.net;Initial Catalog=synsp_dwh"
+		}
+	}
+}
