@@ -17,20 +17,76 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlDWSource",
+						"sqlReaderQuery": "SELECT   distinct\n       [COLE_COD_MCPIO_UBICACION]\n      ,[COLE_MCPIO_UBICACION]\n      ,[COLE_COD_DEPTO_UBICACION]\n      ,[COLE_DEPTO_UBICACION]\n  FROM [dbo].[VW_SB11_RESULTADOS]\n  where [COLE_COD_MCPIO_UBICACION] is not null",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"writeBehavior": "insert",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"codMunicipio"
+							]
+						},
 						"sqlWriterUseTableLock": true,
-						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"dataIntegrationUnits": 2,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "COLE_COD_MCPIO_UBICACION",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "codMunicipio",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "COLE_MCPIO_UBICACION",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "Municipio",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "COLE_COD_DEPTO_UBICACION",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "Departamento",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "COLE_DEPTO_UBICACION",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "Departamento",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
