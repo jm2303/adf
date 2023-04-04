@@ -7,7 +7,341 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",
-		"schema": [],
+		"schema": [
+			{
+				"name": "ESTU_TIPODOCUMENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_NACIONALIDAD",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_GENERO",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_FECHANACIMIENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "PERIODO",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ESTU_CONSECUTIVO",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_ESTUDIANTE",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_PAIS_RESIDE",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_TIENEETNIA",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_DEPTO_RESIDE",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_COD_RESIDE_DEPTO",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_MCPIO_RESIDE",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_COD_RESIDE_MCPIO",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_EDUCACIONPADRE",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_EDUCACIONMADRE",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_ESTRATOVIVIENDA",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_PERSONASHOGAR",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_CUARTOSHOGAR",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_TIENEINTERNET",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_TIENECOMPUTADOR",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_TIENELAVADORA",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_TIENEHORNOMICROOGAS",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_TIENESERVICIOTV",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_TIENEAUTOMOVIL",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_TIENEMOTOCICLETA",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_TIENECONSOLAVIDEOJUEGOS",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_NUMLIBROS",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_DEDICACIONLECTURADIARIA",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_DEDICACIONINTERNET",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_HORASSEMANATRABAJA",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_TIPOREMUNERACION",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_COMELECHEDERIVADOS",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_COMECARNEPESCADOHUEVO",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_COMECEREALFRUTOSLEGUMBRE",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_TRABAJOLABORPADRE",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_TRABAJOLABORMADRE",
+				"type": "varchar"
+			},
+			{
+				"name": "FAMI_SITUACIONECONOMICA",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_COD_DANE_ESTABLECIMIENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_CODIGO_ICFES",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_NOMBRE_ESTABLECIMIENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_JORNADA",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_GENERO",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_NATURALEZA",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_CALENDARIO",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_BILINGUE",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_CARACTER",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_COD_DANE_SEDE",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_NOMBRE_SEDE",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_SEDE_PRINCIPAL",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_AREA_UBICACION",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_COD_MCPIO_UBICACION",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_MCPIO_UBICACION",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_COD_DEPTO_UBICACION",
+				"type": "varchar"
+			},
+			{
+				"name": "COLE_DEPTO_UBICACION",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_PRIVADO_LIBERTAD",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_COD_MCPIO_PRESENTACION",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_MCPIO_PRESENTACION",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_DEPTO_PRESENTACION",
+				"type": "varchar"
+			},
+			{
+				"name": "ESTU_COD_DEPTO_PRESENTACION",
+				"type": "varchar"
+			},
+			{
+				"name": "PUNT_MATEMATICAS",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DESEMP_MATEMATICAS",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PERCENTIL_MATEMATICAS",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PUNT_INGLES",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PERCENTIL_INGLES",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DESEMP_INGLES",
+				"type": "varchar"
+			},
+			{
+				"name": "PUNT_C_NATURALES",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DESEMP_C_NATURALES",
+				"type": "varchar"
+			},
+			{
+				"name": "PERCENTIL_C_NATURALES",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PUNT_LECTURA_CRITICA",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DESEMP_LECTURA_CRITICA",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PERCENTIL_LECTURA_CRITICA",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PUNT_SOCIALES_CIUDADANAS",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DESEMP_SOCIALES_CIUDADANAS",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PERCENTIL_SOCIALES_CIUDADANAS",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PUNT_GLOBAL",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PERCENTIL_GLOBAL",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PERCENTIL_ESPECIAL_GLOBAL",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "annoExamen",
+				"type": "nvarchar"
+			},
+			{
+				"name": "semestreExamen",
+				"type": "nvarchar"
+			}
+		],
 		"typeProperties": {
 			"schema": "dbo",
 			"table": "VW_SB11_RESULTADOS"
