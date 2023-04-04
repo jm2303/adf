@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "DIM_GEO"
+			"table": "DIM_GEOGRAFIA"
 		}
 	}
 }
