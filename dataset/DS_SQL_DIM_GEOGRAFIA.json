@@ -1,0 +1,16 @@
+{
+	"name": "DS_SQL_DIM_GEOGRAFIA",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ANALITICA",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dwh",
+			"table": "DIM_GEOGRAFIA"
+		}
+	}
+}

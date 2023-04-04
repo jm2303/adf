@@ -1,0 +1,45 @@
+{
+	"name": "DS_DIVIPOLA_CSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_DATALAKE",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "divipola.csv",
+				"folderPath": "datalake/staging/divi_pola/csv",
+				"fileSystem": "dls-dwh-dev-eastus-01"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "codDepartamento",
+				"type": "String"
+			},
+			{
+				"name": "codMunicipio",
+				"type": "String"
+			},
+			{
+				"name": "Departamento",
+				"type": "String"
+			},
+			{
+				"name": "Municipio",
+				"type": "String"
+			},
+			{
+				"name": "Tipo",
+				"type": "String"
+			}
+		]
+	}
+}
