@@ -1,0 +1,33 @@
+{
+	"name": "DS_SQL_DIM_COLEGIO",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ANALITICA",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "codColegio",
+				"type": "nchar"
+			},
+			{
+				"name": "Colegio",
+				"type": "varchar"
+			},
+			{
+				"name": "Tipo",
+				"type": "varchar"
+			},
+			{
+				"name": "Bilingue",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DIM_COLEGIO"
+		}
+	}
+}
