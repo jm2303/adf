@@ -9,8 +9,8 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "dwh",
-			"table": "DIM_GEOGRAFIA"
+			"schema": "dbo",
+			"table": "DIM_GEO"
 		}
 	}
 }
