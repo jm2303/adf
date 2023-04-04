@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_file_content",
+						"referenceName": "DS_FOLDER_RAW_ICFES_CSV_INPUT",
 						"type": "DatasetReference"
 					},
 					"fieldList": [

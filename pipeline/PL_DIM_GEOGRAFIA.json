@@ -16,16 +16,9 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"modifiedDatetimeStart": "2023-04-03T00:00:00.000Z",
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
+						"type": "SqlDWSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
 					"sink": {
 						"type": "AzureSqlSink",
@@ -47,7 +40,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_DIVIPOLA_CSV",
+						"referenceName": "synsp_EXT_SB11_RESULTADOS",
 						"type": "DatasetReference"
 					}
 				],

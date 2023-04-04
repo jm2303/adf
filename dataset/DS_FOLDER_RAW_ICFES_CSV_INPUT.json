@@ -1,5 +1,5 @@
 {
-	"name": "ds_file_content",
+	"name": "DS_FOLDER_RAW_ICFES_CSV_INPUT",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_ADLS_DATALAKE",
