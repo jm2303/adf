@@ -1,51 +1,9 @@
 {
-	"name": "pipeline1",
+	"name": "PL_FACT_SB11_SQL",
 	"properties": {
 		"activities": [
 			{
-				"name": "Power Query1",
-				"type": "ExecuteWranglingDataflow",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"dataflow": {
-						"referenceName": "PQ_fact_sb11_by_periodo",
-						"type": "DataFlowReference",
-						"datasetParameters": {
-							"DS_OPENICFES_STAGING_by_periodo": {
-								"year": {
-									"value": "@pipeline().parameters.year",
-									"type": "Expression"
-								},
-								"semester": {
-									"value": "@pipeline().parameters.semester",
-									"type": "Expression"
-								}
-							}
-						}
-					},
-					"staging": {
-						"linkedService": {
-							"referenceName": "AzureBlobStorage1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					"compute": {
-						"coreCount": 8,
-						"computeType": "General"
-					},
-					"queries": []
-				}
-			},
-			{
-				"name": "Copy data1",
+				"name": "Create Fact SB11 RSULTADOS",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -58,15 +16,38 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AzureSqlSource",
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "annoExamen + semestreExamen as Periodo,\r\nISNULL(\"ESTU_GENERO\", 'SIN DATOS') AS  ESTU_GENERO, \r\nISNULL(\"FAMI_TIENEINTERNET\", 'SIN DATOS') AS  FAMI_TIENEINTERNET, \r\nISNULL(\"COLE_CODIGO_ICFES\", 'SIN DATOS') AS  COLE_CODIGO_ICFES, \r\nISNULL(\"ESTU_HORASSEMANATRABAJA\", 'SIN DATOS') AS  ESTU_HORASSEMANATRABAJA, \r\nISNULL(\"FAMI_ESTRATOVIVIENDA\", 'SIN DATOS') AS  FAMI_ESTRATOVIVIENDA, \r\nISNULL(\"DESEMP_INGLES\", 'SIN DATOS') AS  DESEMP_INGLES, \r\nISNULL(COLE_COD_MCPIO_UBICACION, 'SIN DATOS') AS  COLE_COD_MCPIO_UBICACION, \r\nCOUNT(\"ESTU_CONSECUTIVO\") AS NroEstudiantes,\r\nSum([PUNT_MATEMATICAS]) as SumMatematicas,\r\nSum([PUNT_LECTURA_CRITICA]) as SumLectura,\r\nSum([PUNT_C_NATURALES]) as SumCiencias,\r\nSum([PUNT_GLOBAL]) as SumGlobal\r\n\r\nFROM dbo.VW_SB11_RESULTADOS\r\ngroup by \r\nannoExamen,\r\nsemestreExamen,\r\nESTU_GENERO, \r\nFAMI_TIENEINTERNET, \r\nCOLE_CODIGO_ICFES, \r\nESTU_HORASSEMANATRABAJA, \r\nFAMI_ESTRATOVIVIENDA, \r\nDESEMP_INGLES,\r\nCOLE_COD_MCPIO_UBICACION",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"dataIntegrationUnits": 2,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_ASQL_ANALITICA",
+						"referenceName": "synsp_EXT_SB11_RESULTADOS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQL_FACT_SB11",
 						"type": "DatasetReference"
 					}
 				]

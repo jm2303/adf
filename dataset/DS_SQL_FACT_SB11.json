@@ -1,5 +1,5 @@
 {
-	"name": "DS_ASQL_ANALITICA",
+	"name": "DS_SQL_FACT_SB11",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_ANALITICA",
