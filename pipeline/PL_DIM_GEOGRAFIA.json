@@ -106,6 +106,118 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Create DIM_copy1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Create DIM",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "SELECT [COLE_COD_DANE_ESTABLECIMIENTO]\n      ,[COLE_CODIGO_ICFES]\n      ,[COLE_NOMBRE_ESTABLECIMIENTO]\n      ,[COLE_JORNADA]\n      ,[COLE_GENERO]\n      ,isnull([COLE_NATURALEZA],'SIN DATOS') AS [COLE_NATURALEZA]\n      ,[COLE_CALENDARIO]\n      ,isnull([COLE_BILINGUE],'N') as [COLE_BILINGUE]\n      ,isnull([COLE_CARACTER], 'SIN DATOS')  AS [COLE_CARACTER]\n\n  FROM [dbo].[VW_SB11_RESULTADOS]\n  where [COLE_CODIGO_ICFES] is not null",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"codColegio"
+							]
+						},
+						"sqlWriterUseTableLock": true,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"dataIntegrationUnits": 2,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "COLE_CODIGO_ICFES",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "codColegio",
+									"type": "String",
+									"physicalType": "nchar"
+								}
+							},
+							{
+								"source": {
+									"name": "COLE_NOMBRE_ESTABLECIMIENTO",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "Colegio",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "COLE_NATURALEZA",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "Tipo",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "COLE_BILINGUE",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "Bilingue",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "synsp_EXT_SB11_RESULTADOS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQL_DIM_COLEGIO",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"annotations": []
