@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"folderPath": "datalake/raw/open_icfes/input",
-				"fileSystem": "dls-dwh-dev-eastus-01"
+				"fileSystem": "dls-dwh-dev-eastus-02"
 			},
 			"columnDelimiter": "¬",
 			"compressionCodec": "ZipDeflate",
