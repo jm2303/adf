@@ -19,8 +19,8 @@
 					"value": "@concat('year=',substring(dataset().filename,5,4), \n        '/semester=',substring(dataset().filename,9,1) ,'/', \n        replace(dataset().filename,'zip','parquet')\n    )",
 					"type": "Expression"
 				},
-				"folderPath": "datalake/staging/open_icfes/parquet",
-				"fileSystem": "dls-dwh-dev-eastus-01"
+				"folderPath": "datalake/staging/open_icfes/parquet2",
+				"fileSystem": "dls-dwh-dev-eastus-02"
 			},
 			"compressionCodec": "gzip"
 		},
