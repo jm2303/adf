@@ -1,5 +1,5 @@
 {
-	"name": "DS_OPENICFES_INPUT_copy1",
+	"name": "DS_OPENICFES_INPUT_zip",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_ADLS_DATALAKE",
