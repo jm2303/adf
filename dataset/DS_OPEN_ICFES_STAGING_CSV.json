@@ -22,7 +22,7 @@
 				"folderPath": "datalake/staging/open_icfes/csv",
 				"fileSystem": "dls-dwh-dev-eastus-02"
 			},
-			"columnDelimiter": ";",
+			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
